@@ -22,7 +22,8 @@ int main() {
         cout << "2. Display Students\n";
         cout << "3. Search Student\n";
         cout << "4. Update Student\n";
-        cout << "5. Exit\n";
+        cout << "5. Delete Student\n";
+        cout << "6. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -128,8 +129,35 @@ int main() {
             }
         }
 
-        // Exit
+        // Delete Student
         else if (choice == 5) {
+
+            int rollNumber;
+            bool found = false;
+
+            cout << "Enter roll number of student to delete: ";
+            cin >> rollNumber;
+
+            for (auto it = students.begin(); it != students.end(); ++it) {
+
+                if (it->rollNumber == rollNumber) {
+
+                    students.erase(it);
+
+                    cout << "Student deleted successfully!\n";
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                cout << "Student not found.\n";
+            }
+        }
+
+        // Exit
+        else if (choice == 6) {
             cout << "Exiting program...\n";
         }
 
@@ -137,7 +165,7 @@ int main() {
             cout << "Invalid choice. Please try again.\n";
         }
 
-    } while (choice != 5);
+    } while (choice != 6);
 
     return 0;
 }
