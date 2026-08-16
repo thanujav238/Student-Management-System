@@ -21,7 +21,8 @@ int main() {
         cout << "1. Add Student\n";
         cout << "2. Display Students\n";
         cout << "3. Search Student\n";
-        cout << "4. Exit\n";
+        cout << "4. Update Student\n";
+        cout << "5. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -58,15 +59,9 @@ int main() {
 
                 for (const Student& student : students) {
 
-                    cout << "Roll Number: "
-                         << student.rollNumber << endl;
-
-                    cout << "Name: "
-                         << student.name << endl;
-
-                    cout << "Marks: "
-                         << student.marks << endl;
-
+                    cout << "Roll Number: " << student.rollNumber << endl;
+                    cout << "Name: " << student.name << endl;
+                    cout << "Marks: " << student.marks << endl;
                     cout << "-------------------------\n";
                 }
             }
@@ -100,8 +95,41 @@ int main() {
             }
         }
 
-        // Exit
+        // Update Student
         else if (choice == 4) {
+
+            int rollNumber;
+            bool found = false;
+
+            cout << "Enter roll number of student to update: ";
+            cin >> rollNumber;
+
+            for (Student& student : students) {
+
+                if (student.rollNumber == rollNumber) {
+
+                    cin.ignore();
+
+                    cout << "Enter new name: ";
+                    getline(cin, student.name);
+
+                    cout << "Enter new marks: ";
+                    cin >> student.marks;
+
+                    cout << "Student updated successfully!\n";
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                cout << "Student not found.\n";
+            }
+        }
+
+        // Exit
+        else if (choice == 5) {
             cout << "Exiting program...\n";
         }
 
@@ -109,7 +137,7 @@ int main() {
             cout << "Invalid choice. Please try again.\n";
         }
 
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
