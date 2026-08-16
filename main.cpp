@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,7 +25,8 @@ int main() {
         cout << "4. Update Student\n";
         cout << "5. Delete Student\n";
         cout << "6. Student Statistics\n";
-        cout << "7. Exit\n";
+        cout << "7. Sort Students\n";
+        cout << "8. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -192,8 +194,55 @@ int main() {
             }
         }
 
-        // Exit
+        // Sort Students
         else if (choice == 7) {
+
+            if (students.empty()) {
+                cout << "No students available to sort.\n";
+            }
+            else {
+
+                int sortChoice;
+
+                cout << "\n===== SORT STUDENTS =====\n";
+                cout << "1. Highest marks to lowest\n";
+                cout << "2. Lowest marks to highest\n";
+                cout << "3. Back\n";
+                cout << "Enter your choice: ";
+                cin >> sortChoice;
+
+                if (sortChoice == 1) {
+
+                    sort(students.begin(), students.end(),
+                        [](const Student& a, const Student& b) {
+                            return a.marks > b.marks;
+                        });
+
+                    cout << "Students sorted from highest to lowest marks.\n";
+                }
+
+                else if (sortChoice == 2) {
+
+                    sort(students.begin(), students.end(),
+                        [](const Student& a, const Student& b) {
+                            return a.marks < b.marks;
+                        });
+
+                    cout << "Students sorted from lowest to highest marks.\n";
+                }
+
+                else if (sortChoice == 3) {
+                    cout << "Returning to main menu.\n";
+                }
+
+                else {
+                    cout << "Invalid choice.\n";
+                }
+            }
+        }
+
+        // Exit
+        else if (choice == 8) {
             cout << "Exiting program...\n";
         }
 
@@ -201,7 +250,7 @@ int main() {
             cout << "Invalid choice. Please try again.\n";
         }
 
-    } while (choice != 7);
+    } while (choice != 8);
 
     return 0;
 }
