@@ -23,7 +23,8 @@ int main() {
         cout << "3. Search Student\n";
         cout << "4. Update Student\n";
         cout << "5. Delete Student\n";
-        cout << "6. Exit\n";
+        cout << "6. Student Statistics\n";
+        cout << "7. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -156,8 +157,43 @@ int main() {
             }
         }
 
-        // Exit
+        // Statistics
         else if (choice == 6) {
+
+            if (students.empty()) {
+                cout << "No students available to calculate statistics.\n";
+            }
+            else {
+
+                float totalMarks = 0;
+                float highestMarks = students[0].marks;
+                float lowestMarks = students[0].marks;
+
+                for (const Student& student : students) {
+
+                    totalMarks += student.marks;
+
+                    if (student.marks > highestMarks) {
+                        highestMarks = student.marks;
+                    }
+
+                    if (student.marks < lowestMarks) {
+                        lowestMarks = student.marks;
+                    }
+                }
+
+                float averageMarks = totalMarks / students.size();
+
+                cout << "\n===== STUDENT STATISTICS =====\n";
+                cout << "Total Students: " << students.size() << endl;
+                cout << "Average Marks: " << averageMarks << endl;
+                cout << "Highest Marks: " << highestMarks << endl;
+                cout << "Lowest Marks: " << lowestMarks << endl;
+            }
+        }
+
+        // Exit
+        else if (choice == 7) {
             cout << "Exiting program...\n";
         }
 
@@ -165,7 +201,7 @@ int main() {
             cout << "Invalid choice. Please try again.\n";
         }
 
-    } while (choice != 6);
+    } while (choice != 7);
 
     return 0;
 }
