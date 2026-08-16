@@ -3,21 +3,20 @@
 #include <string>
 #include <algorithm>
 
-using namespace std;
+#include "student.h"
 
-struct Student {
-    int rollNumber;
-    string name;
-    float marks;
-};
+using namespace std;
 
 int main() {
 
     vector<Student> students;
 
+    loadStudents(students);
+
     int choice;
 
     do {
+
         cout << "\n===== STUDENT MANAGEMENT SYSTEM =====\n";
         cout << "1. Add Student\n";
         cout << "2. Display Students\n";
@@ -28,9 +27,9 @@ int main() {
         cout << "7. Sort Students\n";
         cout << "8. Exit\n";
         cout << "Enter your choice: ";
+
         cin >> choice;
 
-        // Add Student
         if (choice == 1) {
 
             Student student;
@@ -48,13 +47,15 @@ int main() {
 
             students.push_back(student);
 
+            saveStudents(students);
+
             cout << "Student added successfully!\n";
         }
 
-        // Display Students
         else if (choice == 2) {
 
             if (students.empty()) {
+
                 cout << "No students available.\n";
             }
             else {
@@ -63,15 +64,20 @@ int main() {
 
                 for (const Student& student : students) {
 
-                    cout << "Roll Number: " << student.rollNumber << endl;
-                    cout << "Name: " << student.name << endl;
-                    cout << "Marks: " << student.marks << endl;
+                    cout << "Roll Number: "
+                         << student.rollNumber << endl;
+
+                    cout << "Name: "
+                         << student.name << endl;
+
+                    cout << "Marks: "
+                         << student.marks << endl;
+
                     cout << "-------------------------\n";
                 }
             }
         }
 
-        // Search Student
         else if (choice == 3) {
 
             int rollNumber;
@@ -85,9 +91,12 @@ int main() {
                 if (student.rollNumber == rollNumber) {
 
                     cout << "\nStudent Found!\n";
-                    cout << "Roll Number: " << student.rollNumber << endl;
-                    cout << "Name: " << student.name << endl;
-                    cout << "Marks: " << student.marks << endl;
+                    cout << "Roll Number: "
+                         << student.rollNumber << endl;
+                    cout << "Name: "
+                         << student.name << endl;
+                    cout << "Marks: "
+                         << student.marks << endl;
 
                     found = true;
                     break;
@@ -99,7 +108,6 @@ int main() {
             }
         }
 
-        // Update Student
         else if (choice == 4) {
 
             int rollNumber;
@@ -120,6 +128,8 @@ int main() {
                     cout << "Enter new marks: ";
                     cin >> student.marks;
 
+                    saveStudents(students);
+
                     cout << "Student updated successfully!\n";
 
                     found = true;
@@ -132,7 +142,6 @@ int main() {
             }
         }
 
-        // Delete Student
         else if (choice == 5) {
 
             int rollNumber;
@@ -141,11 +150,15 @@ int main() {
             cout << "Enter roll number of student to delete: ";
             cin >> rollNumber;
 
-            for (auto it = students.begin(); it != students.end(); ++it) {
+            for (auto it = students.begin();
+                 it != students.end();
+                 ++it) {
 
                 if (it->rollNumber == rollNumber) {
 
                     students.erase(it);
+
+                    saveStudents(students);
 
                     cout << "Student deleted successfully!\n";
 
@@ -159,11 +172,12 @@ int main() {
             }
         }
 
-        // Statistics
         else if (choice == 6) {
 
             if (students.empty()) {
-                cout << "No students available to calculate statistics.\n";
+
+                cout << "No students available "
+                     << "to calculate statistics.\n";
             }
             else {
 
@@ -184,20 +198,25 @@ int main() {
                     }
                 }
 
-                float averageMarks = totalMarks / students.size();
+                float averageMarks =
+                    totalMarks / students.size();
 
                 cout << "\n===== STUDENT STATISTICS =====\n";
-                cout << "Total Students: " << students.size() << endl;
-                cout << "Average Marks: " << averageMarks << endl;
-                cout << "Highest Marks: " << highestMarks << endl;
-                cout << "Lowest Marks: " << lowestMarks << endl;
+                cout << "Total Students: "
+                     << students.size() << endl;
+                cout << "Average Marks: "
+                     << averageMarks << endl;
+                cout << "Highest Marks: "
+                     << highestMarks << endl;
+                cout << "Lowest Marks: "
+                     << lowestMarks << endl;
             }
         }
 
-        // Sort Students
         else if (choice == 7) {
 
             if (students.empty()) {
+
                 cout << "No students available to sort.\n";
             }
             else {
@@ -209,44 +228,65 @@ int main() {
                 cout << "2. Lowest marks to highest\n";
                 cout << "3. Back\n";
                 cout << "Enter your choice: ";
+
                 cin >> sortChoice;
 
                 if (sortChoice == 1) {
 
-                    sort(students.begin(), students.end(),
-                        [](const Student& a, const Student& b) {
+                    sort(
+                        students.begin(),
+                        students.end(),
+                        [](const Student& a,
+                           const Student& b) {
                             return a.marks > b.marks;
-                        });
+                        }
+                    );
 
-                    cout << "Students sorted from highest to lowest marks.\n";
+                    saveStudents(students);
+
+                    cout << "Students sorted from "
+                         << "highest to lowest marks.\n";
                 }
 
                 else if (sortChoice == 2) {
 
-                    sort(students.begin(), students.end(),
-                        [](const Student& a, const Student& b) {
+                    sort(
+                        students.begin(),
+                        students.end(),
+                        [](const Student& a,
+                           const Student& b) {
                             return a.marks < b.marks;
-                        });
+                        }
+                    );
 
-                    cout << "Students sorted from lowest to highest marks.\n";
+                    saveStudents(students);
+
+                    cout << "Students sorted from "
+                         << "lowest to highest marks.\n";
                 }
 
                 else if (sortChoice == 3) {
+
                     cout << "Returning to main menu.\n";
                 }
 
                 else {
+
                     cout << "Invalid choice.\n";
                 }
             }
         }
 
-        // Exit
         else if (choice == 8) {
+
+            saveStudents(students);
+
+            cout << "Data saved successfully.\n";
             cout << "Exiting program...\n";
         }
 
         else {
+
             cout << "Invalid choice. Please try again.\n";
         }
 
