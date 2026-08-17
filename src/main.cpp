@@ -2,10 +2,28 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <cstdlib>
 
 #include "student.h"
 
 using namespace std;
+
+void clearScreen() {
+    system("cls");
+}
+void pauseScreen() {
+    cout << "\nPress Enter to continue...";
+    cin.ignore(1000, '\n');
+    cin.get();
+}
+
+void successMessage(const string& message) {
+    cout << "\n[SUCCESS] " << message << "\n";
+}
+
+void errorMessage(const string& message) {
+    cout << "\n[ERROR] " << message << "\n";
+}
 
 int main() {
 
@@ -14,18 +32,24 @@ int main() {
     loadStudents(students);
 
     int choice;
-
     do {
 
-        cout << "\n===== STUDENT MANAGEMENT SYSTEM =====\n";
-        cout << "1. Add Student\n";
-        cout << "2. Display Students\n";
-        cout << "3. Search Student\n";
-        cout << "4. Update Student\n";
-        cout << "5. Delete Student\n";
-        cout << "6. Student Statistics\n";
-        cout << "7. Sort Students\n";
-        cout << "8. Exit\n";
+    clearScreen();
+
+    cout << "========================================\n";
+    cout << "       STUDENT MANAGEMENT SYSTEM\n";
+    cout << "========================================\n\n";
+
+    cout << "  1. Add Student\n";
+    cout << "  2. Display Students\n";
+    cout << "  3. Search Student\n";
+    cout << "  4. Update Student\n";
+    cout << "  5. Delete Student\n";
+    cout << "  6. Student Statistics\n";
+    cout << "  7. Sort Students\n";
+    cout << "  8. Exit\n";
+
+    cout << "\n----------------------------------------\n";
     while (true) {
 
     cout << "Enter your choice: ";
@@ -42,7 +66,7 @@ int main() {
 
     if (choice < 1 || choice > 8) {
 
-        cout << "Invalid choice! Please select a number between 1 and 8.\n";
+        errorMessage("Invalid choice! Please select a number between 1 and 8.");
         continue;
     }
 
@@ -76,7 +100,7 @@ int main() {
 
     if (rollNumberExists(students, student.rollNumber)) {
 
-        cout << "Roll number already exists! Please enter a different roll number.\n";
+     errorMessage("Roll number already exists! Please enter a different roll number.");
         continue;
     }
 
@@ -116,7 +140,8 @@ int main() {
 
             saveStudents(students);
 
-            cout << "Student added successfully!\n";
+            successMessage("Student added successfully!");
+            pauseScreen();
         }
 
         else if (choice == 2) {
@@ -143,6 +168,7 @@ int main() {
                     cout << "-------------------------\n";
                 }
             }
+            pauseScreen();
         }
 
         else if (choice == 3) {
@@ -171,8 +197,9 @@ int main() {
             }
 
             if (!found) {
-                cout << "Student not found.\n";
+                errorMessage("Student not found.");
             }
+            pauseScreen();
         }
 
         else if (choice == 4) {
@@ -197,7 +224,7 @@ int main() {
 
                     saveStudents(students);
 
-                    cout << "Student updated successfully!\n";
+                 successMessage("Student updated successfully!");
 
                     found = true;
                     break;
@@ -205,8 +232,9 @@ int main() {
             }
 
             if (!found) {
-                cout << "Student not found.\n";
+             errorMessage("Student not found.");
             }
+            pauseScreen();
         }
 
         else if (choice == 5) {
@@ -227,7 +255,7 @@ int main() {
 
                     saveStudents(students);
 
-                    cout << "Student deleted successfully!\n";
+                 successMessage("Student deleted successfully!");
 
                     found = true;
                     break;
@@ -235,16 +263,17 @@ int main() {
             }
 
             if (!found) {
-                cout << "Student not found.\n";
+                errorMessage("Student not found.");
             }
+            pauseScreen();
         }
 
         else if (choice == 6) {
 
             if (students.empty()) {
 
-                cout << "No students available "
-                     << "to calculate statistics.\n";
+            errorMessage("No students available.");
+                     "to calculate statistics.\n";
             }
             else {
 
@@ -278,6 +307,7 @@ int main() {
                 cout << "Lowest Marks: "
                      << lowestMarks << endl;
             }
+            pauseScreen();
         }
 
         else if (choice == 7) {
@@ -311,10 +341,8 @@ int main() {
 
                     saveStudents(students);
 
-                    cout << "Students sorted from "
-                         << "highest to lowest marks.\n";
+                 successMessage("Students sorted from highest to lowest marks.");
                 }
-
                 else if (sortChoice == 2) {
 
                     sort(
@@ -328,8 +356,7 @@ int main() {
 
                     saveStudents(students);
 
-                    cout << "Students sorted from "
-                         << "lowest to highest marks.\n";
+                 successMessage("Students sorted from lowest to highest marks.");
                 }
 
                 else if (sortChoice == 3) {
@@ -342,6 +369,7 @@ int main() {
                     cout << "Invalid choice.\n";
                 }
             }
+            pauseScreen();
         }
 
         else if (choice == 8) {
