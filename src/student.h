@@ -14,4 +14,6 @@ void saveStudents(const std::vector<Student>& students);
 
 void loadStudents(std::vector<Student>& students);
 
+bool rollNumberExists(const std::vector<Student>& students, int rollNumber);
+
 #endif

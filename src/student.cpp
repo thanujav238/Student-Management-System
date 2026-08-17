@@ -25,6 +25,7 @@ void saveStudents(const vector<Student>& students) {
     file.close();
 }
 
+
 void loadStudents(vector<Student>& students) {
 
     ifstream file("data/students.txt");
@@ -68,4 +69,17 @@ void loadStudents(vector<Student>& students) {
     }
 
     file.close();
+}
+
+
+bool rollNumberExists(const vector<Student>& students, int rollNumber) {
+
+    for (const Student& student : students) {
+
+        if (student.rollNumber == rollNumber) {
+            return true;
+        }
+    }
+
+    return false;
 }

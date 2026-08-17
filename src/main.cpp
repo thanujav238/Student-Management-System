@@ -26,24 +26,91 @@ int main() {
         cout << "6. Student Statistics\n";
         cout << "7. Sort Students\n";
         cout << "8. Exit\n";
-        cout << "Enter your choice: ";
+    while (true) {
 
-        cin >> choice;
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    if (cin.fail()) {
+
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid input! Please enter a number.\n";
+        continue;
+    }
+
+    if (choice < 1 || choice > 8) {
+
+        cout << "Invalid choice! Please select a number between 1 and 8.\n";
+        continue;
+    }
+
+    break;
+}
 
         if (choice == 1) {
 
             Student student;
 
-            cout << "Enter roll number: ";
-            cin >> student.rollNumber;
+            while (true) {
+
+    cout << "Enter roll number: ";
+
+    cin >> student.rollNumber;
+
+    if (cin.fail()) {
+
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid input! Please enter a number.\n";
+        continue;
+    }
+
+    if (student.rollNumber <= 0) {
+
+        cout << "Invalid roll number! Please enter a positive number.\n";
+        continue;
+    }
+
+    if (rollNumberExists(students, student.rollNumber)) {
+
+        cout << "Roll number already exists! Please enter a different roll number.\n";
+        continue;
+    }
+
+    break;
+}
 
             cin.ignore();
 
             cout << "Enter student name: ";
             getline(cin, student.name);
 
-            cout << "Enter marks: ";
-            cin >> student.marks;
+            while (true) {
+
+    cout << "Enter marks (0-100): ";
+
+    cin >> student.marks;
+
+    if (cin.fail()) {
+
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid input! Please enter a number.\n";
+        continue;
+    }
+
+    if (student.marks < 0 || student.marks > 100) {
+
+        cout << "Invalid marks! Please enter a value between 0 and 100.\n";
+        continue;
+    }
+
+    break;
+}
 
             students.push_back(student);
 
